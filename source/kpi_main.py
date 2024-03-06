@@ -1,31 +1,22 @@
 import os
 import csv
 
-folder_name = [
-    "刘信Len.Liu",
-    "刘慧Claire.Liu",
-    "刘洋洋Aleo.Liu",
-    "匡婷Harper.Kuang",
-    "吴瑞Rain.Wu",
-    "崔子晨Vincent.Cui",
-    "崔斌Bennett.Cui",
-    "张仲俊Haze.Zhang",
-    "张学忠Allen.Zhang",
-    "徐黎明Abert.Xu",
-    "曹政Bear.Cao",
-    "李叶齐Archie.Li",
-    "李永乐Arthur.Lee",
-    "汪自抒Walker.Wang",
-    "沈子扬Elvin.Shen",
-    "熊鹰Ying.Xiong",
-    "胡心月Ernie.Hu",
-    "郑功良Todd.Zheng"
-]
 
 ROW_ATTRIBUTE_INDEX = {
     "ID": 0,
-    "Status": 0,
-    "Type": 0
+    "work_item_type": 0,
+    "severity": 0,
+    "title": 0,
+    "status": 0,
+    "person_in_charge": 0,
+    "dead_line": 0,
+    "estimated_man_hours": 0,
+    "registered_man_hours": 0,
+    "rest_man_hours": 0,
+    "reopen_times": 0,
+    "creator": 0,
+    "creation_time": 0,
+    "project": ""
 }
 
 report_head = '''任务量等级： 5:非常饱满， 4:饱满，3：适中，2：不足，1：严重不足'''
@@ -157,7 +148,8 @@ class itemPROT_DEV(KPIItem):
         self.summary = ''
 
     def calcu_summary(self):
-        rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭", "WAIT_FEEDBACK", "FILED-已完成"]
+        rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭", "WAIT_FEEDBACK",
+                   "FILED-已完成"]
         self.summary = super().summary(rt_list, "Protocol & Develop Complete: ")
 
 
@@ -185,10 +177,38 @@ class itemST_BUG(KPIItem):
         self.summary += '\n' + super().summary(rt_list, "ST_BUG Reopened: ")
 
 
-fae_bug = itemFAEBUG()
-requirement = itemREQUIREMENT()
-prot_dev = itemPROT_DEV()
-st_bug = itemST_BUG()
+class KPIForOnePerson:
+    def __init__(self):
+        self.name = ''
+        self.work_load = ""
+        self.work_hour = 0
+        self.fae_bug = itemFAEBUG()
+        self.requirement = itemREQUIREMENT()
+        self.prot_dev = itemPROT_DEV()
+        self.st_bug = itemST_BUG()
+        self.report = ""
+
+
+members_in_team = [
+    {"name": "Len.Liu", "name_CN": "刘信", "kpi": KPIForOnePerson()},
+    {"name": "Claire.Liu", "name_CN": "刘慧", "kpi": KPIForOnePerson()},
+    {"name": "Aleo.Liu", "name_CN": "刘洋洋", "kpi": KPIForOnePerson()},
+    {"name": "Harper.Kuang", "name_CN": "匡婷", "kpi": KPIForOnePerson()},
+    {"name": "Rain.Wu", "name_CN": "吴瑞", "kpi": KPIForOnePerson()},
+    {"name": "Vincent.Cui", "name_CN": "崔子晨", "kpi": KPIForOnePerson()},
+    {"name": "Bennett.Cui", "name_CN": "崔斌", "kpi": KPIForOnePerson()},
+    {"name": "Haze.Zhang", "name_CN": "张仲俊", "kpi": KPIForOnePerson()},
+    {"name": "Allen.Zhang", "name_CN": "张学忠", "kpi": KPIForOnePerson()},
+    {"name": "Abert.Xu", "name_CN": "徐黎明", "kpi": KPIForOnePerson()},
+    {"name": "Bear.Cao", "name_CN": "曹政", "kpi": KPIForOnePerson()},
+    {"name": "Archie.Li", "name_CN": "李叶齐", "kpi": KPIForOnePerson()},
+    {"name": "Arthur.Lee", "name_CN": "李永乐", "kpi": KPIForOnePerson()},
+    {"name": "Walker.Wang", "name_CN": "汪自抒", "kpi": KPIForOnePerson()},
+    {"name": "Elvin.Shen", "name_CN": "沈子扬", "kpi": KPIForOnePerson()},
+    {"name": "Ying.Xiong", "name_CN": "熊鹰", "kpi": KPIForOnePerson()},
+    {"name": "Ernie.Hu", "name_CN": "胡心月", "kpi": KPIForOnePerson()},
+    {"name": "Todd.Zheng", "name_CN": "郑功良", "kpi": KPIForOnePerson()}
+]
 
 
 def get_file(path, file_list):
@@ -205,7 +225,10 @@ def get_file(path, file_list):
         pass
 
 
-def row_parser(row_list, attr):
+# ['\ufeffID', '工作项类型', '严重程度', '标题', '状态', '负责人', '截止日期', '预估工时（小时）', '已登记工时（小时）', '剩余工时（小时）', '重新打开-停留次数', '创建者', '创建时间', '所属项目']
+def row_parser(row_list, attr=None):
+    if attr is None:
+        attr = ROW_ATTRIBUTE_INDEX
     id_v = row_list[attr["ID"]]
     st = row_list[attr["Status"]]
     ty = row_list[attr["Type"]]
@@ -228,65 +251,34 @@ def row_parser(row_list, attr):
         return 0
 
 
-def kpi_process(r_path, rattr=None):
-    if rattr is None:
-        rattr = ROW_ATTRIBUTE_INDEX
-    file_list = []
-    fae_bug.reset()
-    requirement.reset()
-    prot_dev.reset()
-    st_bug.reset()
-    get_file(r_path, file_list)
+def kpi_process(r_path, csv_list):
+    report_string = ""
+    for csv_file in csv_list:
+        fpath = os.path.join(r_path, csv_file)
+        print(f"fpath: {fpath}, fn: {csv_file}")
 
-    for fn in file_list:
-        if "pms.csv" == fn:
-            rattr["ID"] = 0
-            rattr["Status"] = 2
-            rattr["Type"] = 13
-        elif "redmin_BUG.csv" == fn:
-            rattr["ID"] = 0
-            rattr["Status"] = 3
-            rattr["Type"] = 2
-        elif "redmin_FAE.csv" == fn:
-            rattr["ID"] = 0
-            rattr["Status"] = 3
-            rattr["Type"] = 2
-        fpath = os.path.join(r_path, fn)
-        print(f"fpath: {fpath}, fn: {fn}")
-        # src_book = xlrd.open_workbook(fpath)
-        # src_sheet = src_book.sheet_by_index(0)
-        with open(fpath, 'r', encoding="utf-8") as f:
-            reader = csv.reader(f)
+        with open(fpath, 'r', encoding="utf-8") as csv_f:
+            reader = csv.reader(csv_f)
             for r_list in reader:
-                row_parser(r_list, rattr)
-        # xlsx_parser(src_sheet)
-    report_string = fae_bug.get_info() + '\n'
-    report_string += prot_dev.get_info() + '\n'
-    report_string += requirement.get_info() + '\n'
-    report_string += st_bug.get_info() + '\n\n'
-
-    report_string += report_secondary_seperator + '\n'
-    report_string += report_summary + '\n'
-    report_string += "    Workload:" + '\n'
-    report_string += fae_bug.summary + '\n'
-    report_string += requirement.summary + '\n'
-    report_string += st_bug.summary + '\n'
-    report_string += prot_dev.summary + '\n'
+                # print(f"r_list: {r_list}")
+                report_string += r_list[0] + "\n"
+                # row_parser(r_list, rattr)
 
     return report_string
 
 
 def main():
     root_path = "D:\\myPyFun\\kpi_view\\kpi_data\\"
-    kpi_data_csv = "KPI_0101-0229.csv"
-    report_name = "2024Q1-KPI考勤报告.txt"
-    report = os.path.join(root_path, report_name)
-    with open(report, "w+") as f:
-        f.write(report_head + '\n')
-        f.write(report_main_seperator + '\n')
-        f.write('\n')
-        p = os.path.join(root_path, kpi_data_csv)
-        f.write(kpi_process(p))
+    kpi_csv_file_list = ["redmin_0101-0229.csv", "PMS_0101-0229.csv"]
+    kpi_process(root_path, kpi_csv_file_list)
+
+    # report_name = "2024Q1-KPI考勤报告.txt"
+    # report = os.path.join(root_path, report_name)
+    # with open(report, "w+") as f:
+    #     f.write(report_head + '\n')
+    #     f.write(report_main_seperator + '\n')
+    #     f.write('\n')
+    #     f.write()
 
 
 # 外部调用的时候不执行
