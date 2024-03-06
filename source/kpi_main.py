@@ -1,24 +1,6 @@
 import os
 import csv
 
-
-ROW_ATTRIBUTE_INDEX = {
-    "ID": 0,
-    "work_item_type": 0,
-    "severity": 0,
-    "title": 0,
-    "status": 0,
-    "person_in_charge": 0,
-    "dead_line": 0,
-    "estimated_man_hours": 0,
-    "registered_man_hours": 0,
-    "rest_man_hours": 0,
-    "reopen_times": 0,
-    "creator": 0,
-    "creation_time": 0,
-    "project": ""
-}
-
 report_head = '''任务量等级： 5:非常饱满， 4:饱满，3：适中，2：不足，1：严重不足'''
 report_main_seperator = '''================================================================================='''
 report_secondary_seperator = '''------------------------------------------------------------------------'''
@@ -225,50 +207,95 @@ def get_file(path, file_list):
         pass
 
 
-# ['\ufeffID', '工作项类型', '严重程度', '标题', '状态', '负责人', '截止日期', '预估工时（小时）', '已登记工时（小时）', '剩余工时（小时）', '重新打开-停留次数', '创建者', '创建时间', '所属项目']
-def row_parser(row_list, attr=None):
-    if attr is None:
-        attr = ROW_ATTRIBUTE_INDEX
-    id_v = row_list[attr["ID"]]
-    st = row_list[attr["Status"]]
-    ty = row_list[attr["Type"]]
+row_attr_index = {
+    "id": 0,
+    "work_item_type": 0,
+    "severity": 0,
+    "title": 0,
+    "status": 0,
+    "person_in_charge": 0,
+    "dead_line": 0,
+    "estimated_man_hours": 0,
+    "registered_man_hours": 0,
+    "rest_man_hours": 0,
+    "reopen_times": 0,
+    "creator": 0,
+    "creation_time": 0,
+    "project": ""
+}
 
-    if ty in fae_bug.name_list:
-        fae_bug.do_proc(id_v, st, ty)
-        fae_bug.calcu_summary()
-        return 0
-    if ty in requirement.name_list:
-        requirement.do_proc(id_v, st, ty)
-        requirement.calcu_summary()
-        return 0
-    if ty in prot_dev.name_list:
-        prot_dev.do_proc(id_v, st, ty)
-        prot_dev.calcu_summary()
-        return 0
-    if ty in st_bug.name_list:
-        st_bug.do_proc(id_v, st, ty)
-        st_bug.calcu_summary()
-        return 0
+
+# ['\ufeffID', '工作项类型', '严重程度', '标题', '状态', '负责人', '截止日期', '预估工时（小时）', '已登记工时（小时）', '剩余工时（小时）', '重新打开-停留次数', '创建者',
+# '创建时间', '所属项目']
+# ['\ufeff#', '跟踪', 'Severity', '主题', '状态', '指派给', '计划完成日期', '预估工时统计', '耗时', '预期时间', '作者', '创建于', '项目']
+def init_row_index(row):
+    row_attr_index["id"] = 0
+    try:
+        row_attr_index["work_item_type"] = row.index("工作项类型")
+    except ValueError:
+        print("error!!")
+        row_attr_index["work_item_type"] = row.index("跟踪")
+    r = row_attr_index["work_item_type"]
+    print(f"work_item_type: {r}")
+
+    try:
+        row_attr_index["severity"] = row.index("严重程度")
+    except ValueError:
+        print("error!!")
+        row_attr_index["severity"] = row.index("Severity")
+    r = row_attr_index["severity"]
+    print(f"severity: {r}")
+
+    try:
+        row_attr_index["title"] = row.index("标题")
+    except ValueError:
+        print("error!!")
+        row_attr_index["title"] = row.index("主题")
+    r = row_attr_index["title"]
+    print(f"title: {r}")
+
+    row_attr_index["status"] = row.index("状态")
+    r = row_attr_index["status"]
+    print(f"status: {r}")
+
+    try:
+        row_attr_index["person_in_charge"] = row.index("负责人")
+    except ValueError:
+        print("error!!")
+        row_attr_index["person_in_charge"] = row.index("指派给")
+    r = row_attr_index["person_in_charge"]
+    print(f"person_in_charge: {r}")
+
+
+def row_parser(row_list, first_row):
+    if first_row:
+        init_row_index(row_list)
 
 
 def kpi_process(r_path, csv_list):
     report_string = ""
     for csv_file in csv_list:
+        first_row = True
         fpath = os.path.join(r_path, csv_file)
         print(f"fpath: {fpath}, fn: {csv_file}")
 
         with open(fpath, 'r', encoding="utf-8") as csv_f:
             reader = csv.reader(csv_f)
             for r_list in reader:
-                # print(f"r_list: {r_list}")
-                report_string += r_list[0] + "\n"
+                row_parser(r_list, first_row)
+                first_row = False
+                print(f"r_list: {r_list}")
+                # report_string += r_list[0] + "\n"
                 # row_parser(r_list, rattr)
 
     return report_string
 
 
 def main():
-    root_path = "D:\\myPyFun\\kpi_view\\kpi_data\\"
+    path = os.getcwd()
+    root_path = path.replace("source", "kpi_data")
+    print(f"root_path: {root_path}")
+    # root_path = "D:\\myPyFun\\kpi_view\\kpi_data\\"
     kpi_csv_file_list = ["redmin_0101-0229.csv", "PMS_0101-0229.csv"]
     kpi_process(root_path, kpi_csv_file_list)
 
