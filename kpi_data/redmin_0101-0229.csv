@@ -1,4 +1,4 @@
-#,跟踪,Severity,主题,状态,指派给,计划完成日期,预估工时统计,耗时,预期时间,作者,创建于,项目
+﻿#,跟踪,Severity,主题,状态,指派给,计划完成日期,预估工时统计,耗时,预期时间,作者,创建于,项目
 74538,DEVELOP,,GL50BLite：SVRS chile定制参数包--20240218,CLOSED,Walker Wang,2024/2/21,0,0,,Willie Liu,2024/2/18 9:37,GL50BLite
 74523,FAE_BUG,Major,GV50P GTDMS issue,RESOLVED,Aleo Liu,,,0,,Ivan Sokac,2024/2/2 21:17,GV50
 74513,FAE_BUG,Major,BB[password] Lost password [Astrata],NO_FEEDBACK,Rain Wu,,,0,,Jose Junior,2024/1/29 21:47,GV300N
