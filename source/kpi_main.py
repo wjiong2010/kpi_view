@@ -277,17 +277,16 @@ def kpi_process(r_path, rattr=None):
 
 
 def main():
-    root_path = "E:\\weekly_report\\2023\\2023-4-KPI"
-    report_name = "2023Q4-KPI考勤报告.txt"
+    root_path = "D:\\myPyFun\\kpi_view\\kpi_data\\"
+    kpi_data_csv = "KPI_0101-0229.csv"
+    report_name = "2024Q1-KPI考勤报告.txt"
     report = os.path.join(root_path, report_name)
     with open(report, "w+") as f:
         f.write(report_head + '\n')
-        for fd in folder_name:
-            f.write(report_main_seperator + '\n')
-            f.write(fd)
-            f.write('\n')
-            p = os.path.join(root_path, fd)
-            f.write(kpi_process(p))
+        f.write(report_main_seperator + '\n')
+        f.write('\n')
+        p = os.path.join(root_path, kpi_data_csv)
+        f.write(kpi_process(p))
 
 
 # 外部调用的时候不执行
