@@ -1,0 +1,75 @@
+#,跟踪,Severity,主题,状态,指派给,计划完成日期,预估工时统计,耗时,预期时间,作者,创建于,项目
+74538,DEVELOP,"",GL50BLite：SVRS chile定制参数包--20240218,CLOSED,Walker Wang,2024-02-21,0.00,0.00,"",Willie Liu,2024-02-18 09:37,GL50BLite
+74523,FAE_BUG,Major,GV50P GTDMS issue,RESOLVED,Aleo Liu,"","",0.00,"",Ivan Sokac,2024-02-02 21:17,GV50
+74513,FAE_BUG,Major,BB[password] Lost password [Astrata],NO_FEEDBACK,Rain Wu,"","",0.00,"",Jose Junior,2024-01-29 21:47,GV300N
+74508,HF_ST_BUG,Major,ST[GTASC&HBM]车辆平路或者坡度获取稳态之后，平路校准，客户摆放位置5台平放1台，测试中出现一台设备校准因子XY方向反了,NEW,Rain Wu,"","",2.00,"",Daisy Yu,2024-01-26 19:04,GB100P_UBI
+74503,HF_ST_BUG,Critical,ST[GTCRA]设备开机设置CRA采样频率为1600hz，设备发生撞击会丢数据,UNCONFIRMED（待讨论）,Rain Wu,"","",0.00,"",Daisy Yu,2024-01-23 19:48,GB100P_UBI
+74500,HF_ST_BUG,Major,ST[GTCRA]设备开启CRA模式非0，设置采样频率为100以上之后切换回100HZ，也会经过客户定制过滤算法,NEW,Rain Wu,"","",0.00,"",Daisy Yu,2024-01-23 16:16,GB100P_UBI
+74498,HF_ST_BUG,Major,ST[GTASC&HBM]车辆平路或者坡度获取稳态之后，平路校准，客户摆放位置5台平放1台，测试完刹车自校准后，车辆正常启动会上报HBM 01急加速,UNCONFIRMED（待讨论）,Rain Wu,"","",0.00,"",Daisy Yu,2024-01-23 14:58,GB100P_UBI
+74471,DEVELOP,"",GMT200N TrackerUK定制参数送测,CLOSED,Walker Wang,"",0.00,0.00,"",Eden Cao,2024-01-11 17:23,GMT200N
+74465,HF_ST_BUG,Major,ST[GTDBG]同步dbg log中添加时间戳未实现,CLOSED,Rain Wu,"","",1.00,"",Daisy Yu,2024-01-10 16:03,GB100P_UBI
+74461,HF_ST_BUG,Major,ST[GTFRI]设置FRI上报模式为1或者5，设备点熄火切换在点火，不上报FRI报文,CLOSED,Rain Wu,"","",8.00,"",Daisy Yu,2024-01-09 20:06,GB100P_UBI
+74455,DEVELOP,"",GL50BLite：Trak (Global Solutions)定制参数包--20240104,NEW,Walker Wang,2024-01-09,0.00,0.00,"",Willie Liu,2024-01-04 16:00,GL50BLite
+74454,HF_ST_BUG,Critical,ST[GTASC&HBM]客户摆放位置，设备校准成功后发生HBM，概率性检测不到急加速,CLOSED,Rain Wu,"","",16.50,"",Daisy Yu,2024-01-03 20:38,GB100P_UBI
+74453,HF_ST_BUG,Critical,ST[GTASC]客户摆放位置，出现有设备上坡稳态平路校准多次之后始终不能校准，最后才校准2次，车辆静止后Y轴有一个分量；下坡稳态平路校准出现一台设备,CLOSED,Rain Wu,"","",30.00,"",Daisy Yu,2024-01-03 20:27,GB100P_UBI
+74445,HF_ST_BUG,Major,ST[GTFRI]设备FRI设置非定时其他模式，上报FRI报文三轴均值和角度出现异常,WAIT_SOLVE（待解决）,Rain Wu,"","",0.50,"",Daisy Yu,2023-12-28 11:51,GB100P_UBI
+74443,HF_ST_BUG,Major,ST[GTFRI]设备点火时send间隔上报小于10s，discard no fix为1，不上报FRI/ERI报文,CLOSED,Rain Wu,"","",0.50,"",Daisy Yu,2023-12-27 15:58,GB100P_UBI
+74438,HF_ST_BUG,Critical,ST[ASC]下坡获取稳态，平路校准时，客户摆放位置5台，测试完刹车自校准后，车辆正常行驶回来上报多条HBM 01急加速,CLOSED,Rain Wu,"","",2.50,"",Daisy Yu,2023-12-26 10:31,GB100P_UBI
+74437,HF_ST_BUG,Major,ST[ASC]客户摆放位置，其中一台设备从车库安装之后出去，车辆自校准多次，始终不能校准，再次静止之后再次校准恢复,CLOSED,Rain Wu,"","",2.50,"",Daisy Yu,2023-12-26 10:31,GB100P_UBI
+74424,FAE_BUG,Major,SW[BB-GV300N_TZA]Wrong Device Type in ACK message[TZA],NO_FEEDBACK,Arthur Lee,"","",3.00,"",Wayne Song,2023-12-21 10:48,GV300N_TZA
+74358,HF_ST_BUG,Major,ST[GTVMS]设置点熄火模式为5或者6，设备接车，点火开车，设备会出现频繁点熄火切换,UNCONFIRMED（待讨论）,Rain Wu,"","",0.00,"",Daisy Yu,2023-12-13 10:06,GB100P_Delta
+74344,FAE_BUG,Major,SW[BB-GV300TP_MOB] Crash Event Not Reported [Mobiliz],RESOLVED,Arthur Lee,"","",3.00,"",oliver lu,2023-12-12 11:27,GV300TP_MOB
+74320,HF_ST_BUG,Major,ST[GTFRI]设备点火时discard no fix为1，不上报FRI/ERI报文,CLOSED,Rain Wu,"","",0.50,"",Daisy Yu,2023-12-09 11:12,GB100P_UBI
+74217,HF_PROTOCOL,"",新增命令AT+GTIDS命令,REJECTED,Archie Li,"","",0.00,"",Todd Zheng,2023-11-28 15:28,GV75W
+74103,DEVELOP,"",GV65NPlus Quatenus Angola参数包定制,CLOSED,Archie Li,2023-11-21,0.00,0.00,"",Nancy Yin,2023-11-17 14:52,GV65N
+74102,DEVELOP,"",GV56 Quatenus Angola 客户定制参数,CLOSED,Archie Li,2023-11-20,0.00,0.00,"",Nancy Yin,2023-11-17 14:38,GV56
+74099,REQUIREMENT,"",SW[GV75W] Add a command to modify all the IDs in ID Authentication [Hunter],RESOLVED,Archie Li,2023-12-21,0.00,0.00,"",Felipe Mendez,2023-11-17 03:16,GV75W
+74098,FAE_BUG,Major,SW[BB-GV300TP_MOB]Wrong crash event[Mobiliz],CLOSED,Arthur Lee,"","",2.00,"",Dylan Bai,2023-11-16 17:00,GV300TP_MOB
+74041,REQUIREMENT,"","GV350CEU_WFS, as disscussed in Wechat, we would need to intruduce releable way of identifieing headings of turns reported",RESOLVED,Ying Xiong,"","",0.00,"",Ivan Maric,2023-11-02 20:07,GV350CEU_WFS
+74030,FAE_BUG,Major,SW[BB-GV56_MOB]Odometer_Drastic_Increase[Mobiliz],RESOLVED,Len Liu,2023-11-14,"",0.00,"",Dylan Bai,2023-11-01 13:56,GV56_MOB
+74016,DEVELOP,"",GV56_MOB：Mobiliz参数包制作,CLOSED,Len Liu,2023-11-02,"",0.00,"",Nancy Yin,2023-10-31 09:40,GV56_MOB
+74001,HF_ST_BUG,Major,ST[GTBCS]设备打开蓝牙，下发RTO查询附近蓝牙信息，上报的BSC报文不符合协议格式,CLOSED,Rain Wu,"","",1.50,"",Daisy Yu,2023-10-27 16:42,GB100P_UBI
+73999,FAE_BUG,Major,GV350CEU x WID320G / ELA BLUE PUCK MOV / ELA BLUE PUCK T EN12380 tests did not performed on a level that customer expected.,NO_FEEDBACK,Harper Kuang,2023-11-03,"",0.00,"",Ivan Maric,2023-10-27 15:47,GV350CEU
+73988,HF_ST_BUG,Critical,ST[GTBMS]主设备下发GTBMS查询从设备蓝牙UUID对应180A-2A28查询软件版本时，不上报BDR报文,CLOSED,Rain Wu,"","",17.00,"",Daisy Yu,2023-10-27 10:27,GB100P_UBI
+73941,FAE_BUG,Major,"GV350CEU, customer Syniotec, bug with location not being refreshed and speed is reported as zero",NO_FEEDBACK,Ying Xiong,"","",0.00,"",Ivan Maric,2023-10-20 21:49,GV350CEU
+73908,HF_ST_BUG,Major,ST[RTO]设备全配时，下发RTO-2查询配置参数，GTALM报文中GTBID配置返回格式错误,CLOSED,Rain Wu,"","",4.00,"",janet he,2023-10-17 17:33,GB100P_UBI
+73881,HF_ST_BUG,Critical,ST[GTCRA]设备开机设置CRA采样频率为1600hz，设备不停的重启,CLOSED,Rain Wu,"","",8.00,"",Daisy Yu,2023-10-14 16:04,GB100P_UBI
+73834,FAE_BUG,Major,BB [GTOUT] Activation of the output in gradual mode and check speed [IturanBr],RESOLVED,Harper Kuang,2023-10-26,"",0.00,"",Jose Junior,2023-10-10 03:40,GV56_ITR
+73819,FAE_BUG,Major,BB[CAN] CAN reading of the Fiat Strada vehicle [Autotrac],WAIT_RELEASE,Elvin Shen,"","",0.00,"",Jose Junior,2023-10-05 02:34,GV350CEU
+73790,HF_ST_BUG,Critical,ST[GTVMS]设置点熄火模式为5或者6，设备接车，点火开车，设备会出现频繁点熄火切换,UNCONFIRMED（待讨论）,Rain Wu,"","",25.00,"",Daisy Yu,2023-09-25 20:32,GB100P_UBI
+73566,HF_ST_BUG,Major,ST【CFU】CFU 301报文中New Version报的是之前的固件版本,CLOSED,Len Liu,"","",0.00,"",Drake Yao,2023-08-28 15:24,GV56_MOB
+73565,HF_ST_BUG,Normal,"ST[IDA]ID List Type为1且BID配件为ID ELA下，配置2个合法的ID ELA配件，扫描到其中一个合法ID ELA配件后在关闭该ELA,几分钟打开另一个合法ID ELA配件后，ID不会改变",NEW,Archie Li,"","",0.00,"",Ice Zhou,2023-08-28 14:30,GV56
+73561,HF_ST_BUG,Major,ST[IDA]ID List Type为1时，ASCII和HEX ERI报文里1-wire Data参数里都会上报扫描到的ID ELA/WKF 300蓝牙配件MAC地址,CLOSED,Archie Li,"","",0.00,"",Ice Zhou,2023-08-28 13:19,GV56
+73560,HF_ST_BUG,Major,ST[IDA]IDA 里ID List Type为1，设备扫描到非ELA、WKF300配件也会上报IDA报文,CLOSED,Archie Li,"","",0.00,"",Ice Zhou,2023-08-28 13:17,GV56
+73524,HF_ST_BUG,Major,ST[BAS]单独配置WTH300配件，在温湿度范围内，不上报BAA报文，配置多个温湿度配件在温度范围内，会上报BAA报文,CLOSED,Archie Li,"","",0.00,"",Ice Zhou,2023-08-24 10:52,GV56
+73514,HF_ST_BUG,Major,"ST【BAS】设备配置多个Technoton配件，上报BAR报文，其中一个index上将<Actual Sensor Iength>, <Empty Frequency> , <Full Frequency> 设置成非默认值，其他index上的Technoton配件将不上报BAR报文",CLOSED,Len Liu,"","",0.00,"",Drake Yao,2023-08-23 18:14,GV56_MOB
+73451,HF_PROTOCOL,"",GB100P_UBI初版协议,DOING,Aleo Liu,"","",0.00,"",Aleo Liu,2023-08-16 16:34,GB100P_UBI
+73346,HF_ST_BUG,Major,ST【buffer】设备不插卡5minDOG重启挂机存buffer，一台设备buffer一直存不满,WAIT_SOLVE（待解决）,Archie Li,"","",0.00,"",Ice Zhou,2023-08-02 19:33,GV56
+73335,HF_ST_BUG,Major,【CFG】New Password与协议不符,CLOSED,Archie Li,"","",0.00,"",Drake Yao,2023-08-01 18:07,GV56_ITR
+73322,HF_ST_BUG,Normal,ST[BID]测试过程中出现了一次扫描不到ELA配件,NEW,Archie Li,"","",0.00,"",Ice Zhou,2023-07-31 09:07,GV56
+73319,HF_ST_BUG,Major,ST【FVR】FVR里勾选部分命令会导致升级失败报304,NEW,Archie Li,"","",0.00,"",Ice Zhou,2023-07-29 14:48,GV56
+73315,HF_ST_BUG,Normal,ST[HMC]vms模式1下，42状态不统计工时,NEW,Archie Li,"","",0.00,"",Ice Zhou,2023-07-28 16:24,GV56
+73310,HF_ST_BUG,Major,"ST【SOS】模式1/3/4下，数字输入低电平触发SOS,设备拨打电话过程报文上报堵塞，且会有多条重复的DOS报文上报",CLOSED,Archie Li,"","",0.00,"",Ice Zhou,2023-07-27 19:08,GV56
+73220,HF_ST_BUG,Major,ST【SOS】数字输入低电平触发上报SOS报文后输出灯常亮，之后切换成高电平，输出灯熄灭,CLOSED,Archie Li,"","",0.00,"",Drake Yao,2023-07-18 17:25,GV56_ITR
+73176,HF_ST_BUG,Normal,"ST[RTO&BLE]打开蓝牙，下发RTO-14-BAU,上报了一条GTERR报文,协议中不存在此报文",WAIT_SOLVE（待解决）,Archie Li,"","",0.30,"",Anna Kong,2023-07-12 18:53,GV300CAN
+73122,REQUIREMENT,"",SW [GV350CEU] Create a feature to sniffing CAN | All Queclink's customers,NO_FEEDBACK,Elvin Shen,"","",0.00,"",Bruno Matos,2023-07-06 21:48,GV350CEU
+72756,DEVELOP,"",GV65NP_MOB：Mobiliz参数包制作,CLOSED,Bear Cao,2023-06-02,"",0.00,"",Nancy Yin,2023-05-30 10:07,GV65N_MOB
+72704,REQUIREMENT,"",SW[BB-GV50P]Add HBM by motion sensor [Monito],REJECTED,Allen Zhang,2023-07-21,0.00,0.00,"",Wayne Song,2023-05-25 10:02,GV50
+72303,HF_PROTOCOL,"",GTBTM and GTRTO for GV300CEU_TZA,FILED,Arthur Lee,"","",0.00,"",Arthur Lee,2023-05-05 16:53,GV300CEU_TZA
+72269,HF_ST_BUG,Normal,WRL300配件连接正常，但下发RTO-3A控制一直报连接错误的BAA报文,WAIT_SOLVE（待解决）,Allen Zhang,"","",0.00,"",Ice Zhou,2023-05-05 09:15,GV56
+70382,REQUIREMENT,"",GV58LAU LOA firmware ,RESOLVED,Todd Zheng,2023-06-25,0.00,0.00,"",Martin Gonzalez,2023-03-22 10:40,GV58LAU_LOA
+70115,REQUIREMENT,"",Requirement from Add_secure for GV350CEU custom firmware version with added CAN reading options,RESOLVED,Elvin Shen,2023-08-15,"",0.00,"",Ivan Maric,2023-03-15 20:32,GV350CEU
+69338,HF_ST_BUG,Major,设备发生自校准后，RTO-25查询GTSCS报文显示未完成自校准,WAIT_SOLVE（待解决）,Todd Zheng,"","",0.00,"",Drake Yao,2023-03-01 17:53,GV56_ITR
+68946,HF_ST_BUG,Major,ST[GTCAN]GTCAN报文上报Detailed Information/Indicators为0，协议规定length为8，上报Doors为0，协议规定length为2,RESOLVED（已解决）,Archie Li,"","",1.00,"",Anna Kong,2023-02-22 15:08,GV300CAN
+67656,HF_ST_BUG,Major,切换index后，会出现下发RTO-3A无反应,CLOSED,Allen Zhang,"","",0.00,"",Shyla Wu,2023-01-16 18:29,GV300CEU_TZA
+63400,HF_ST_BUG,Major,"ST[GTFRI&GTCAN]Feature Switch Mask=1,同步can speed，定位失败且同步失败，然后恢复can数据，无法同步can speed到FRI报文",RESOLVED（已解决）,Archie Li,"","",1.50,"",Anna Kong,2022-10-13 16:32,GV300CAN
+52907,HF_ST_BUG,Major,ST[OEX]设备连接WBC300后，下发OEX控制WBC300灯亮和灭时，命令下发成功，输出灯没有反应,CLOSED,Allen Zhang,"","",0.00,"",Drake Yao,2022-04-14 15:47,GV56
+52562,FAE_BUG,Major,SW[BB-GV300TP] Mileage  jump [Mobiliz],NO_FEEDBACK,Arthur Lee,"","",0.00,"",Taha Bouras,2022-04-06 16:52,GV300TP_MOB
+52247,FAE_BUG,Major,SW[BB-GV300TP] Abnormal ODO reading [Mobiliz],NO_FEEDBACK,Arthur Lee,"","",0.00,"",Taha Bouras,2022-03-29 17:11,GV300TP_MOB
+48340,FAE_BUG,Major,SW[BB-GV300TP_MOB] GTOBI message is not reported【MOB】,CLOSED,Arthur Lee,"","",0.00,"",Dylan Bai,2021-12-31 11:05,GV300TP_MOB
+46440,FAE_BUG,Major,SW [GV300TP V2] GTOBI report repeating issue [Mobiliz],RESOLVED,Arthur Lee,"","",0.00,"",Alper Kaynar,2021-11-26 17:32,GV300TP_MOB
+28264,ST_BUG,Major,ST[稳定性]设备电量正常，在测试过程中出现3次异常重启现象,CLOSED,Bennett Cui,"","",0.00,"",Kivi Luo,2020-09-17 16:22,GL50BLite
+25250,DEVELOP,"",GV300CEU项目根任务,DOING,John Wang,2021-06-01,0.00,0.00,"",Evan Tu,2020-06-28 10:43,GV300CEU
+24963,DEVELOP,"",GL50BLite 软件开发跟踪,NEW,Bennett Cui,2022-09-26,0.00,0.00,"",Berry Xu,2020-06-17 16:13,GL50BLite
+5524,DEVELOP,"",GV300CAN_TRY 开发根任务,DOING,John Wang,2020-11-24,0.00,0.00,"",Bart Yuan,2018-11-20 13:14,GV300CAN_TRY
+2060,DEVELOP,"",GV300N 软件开发根任务,NEW,Rain Wu,2022-04-01,0.00,0.00,"",Colin Hu,2018-04-21 16:36,GV300N
