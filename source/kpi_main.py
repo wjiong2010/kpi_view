@@ -193,20 +193,6 @@ members_in_team = [
 ]
 
 
-def get_file(path, file_list):
-    # 列出当前目录下所有的文件夹和文件，返回一个列表
-    inner_list = os.listdir(path)
-    print(path)
-    try:
-        for inl in inner_list:
-            # 过滤掉隐藏文件夹
-            if inl[0] == '.' or inl[0] == '~':
-                continue
-            file_list.append(inl)
-    except PermissionError:
-        pass
-
-
 row_attr_index = {
     "id": 0,
     "work_item_type": 0,
@@ -266,10 +252,70 @@ def init_row_index(row):
     r = row_attr_index["person_in_charge"]
     print(f"person_in_charge: {r}")
 
+    try:
+        row_attr_index["dead_line"] = row.index("截止日期")
+    except ValueError:
+        print("error!!")
+        row_attr_index["dead_line"] = row.index("计划完成日期")
+    r = row_attr_index["dead_line"]
+    print(f"dead_line: {r}")
+
+    try:
+        row_attr_index["estimated_man_hours"] = row.index("预估工时（小时）")
+    except ValueError:
+        print("error!!")
+        row_attr_index["estimated_man_hours"] = row.index("预估工时统计")
+    r = row_attr_index["estimated_man_hours"]
+    print(f"estimated_man_hours: {r}")
+
+    try:
+        row_attr_index["registered_man_hours"] = row.index("已登记工时（小时）")
+    except ValueError:
+        print("error!!")
+        row_attr_index["registered_man_hours"] = row.index("耗时")
+    r = row_attr_index["registered_man_hours"]
+    print(f"registered_man_hours: {r}")
+
+    try:
+        row_attr_index["creator"] = row.index("创建者")
+    except ValueError:
+        print("error!!")
+        row_attr_index["creator"] = row.index("作者")
+    r = row_attr_index["creator"]
+    print(f"creator: {r}")
+
+    try:
+        row_attr_index["creation_time"] = row.index("创建时间")
+    except ValueError:
+        print("error!!")
+        row_attr_index["creation_time"] = row.index("创建于")
+    r = row_attr_index["creation_time"]
+    print(f"creation_time: {r}")
+
+    try:
+        row_attr_index["project"] = row.index("所属项目")
+    except ValueError:
+        print("error!!")
+        row_attr_index["project"] = row.index("项目")
+    r = row_attr_index["project"]
+    print(f"project: {r}")
+
+    try:
+        row_attr_index["reopen_times"] = row.index("重新打开-停留次数")
+    except ValueError:
+        print("error!!")
+        # row_attr_index["project"] = row.index("项目")
+    r = row_attr_index["reopen_times"]
+    print(f"reopen_times: {r}")
+
+    print(row_attr_index)
+
 
 def row_parser(row_list, first_row):
     if first_row:
         init_row_index(row_list)
+    else:
+        print(row_list)
 
 
 def kpi_process(r_path, csv_list):
