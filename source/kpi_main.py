@@ -93,11 +93,12 @@ class itemFAEBUG(KPIItem):
             "WAIT_RELEASE": 0,
             "CLOSED-关闭": 0
         }
-        self.summary = ''
+        self.fix_pre = "FAE_BUG Fixed: "
+        self.summary = " " * 4 + self.fix_pre + "null"
 
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭"]
-        self.summary = super().complete_ratio(rt_list, "FAE_BUG Fixed: ")
+        self.summary = super().complete_ratio(rt_list, self.fix_pre)
 
 
 class itemREQUIREMENT(KPIItem):
@@ -117,16 +118,17 @@ class itemREQUIREMENT(KPIItem):
             "关闭": 0,
             "NO_FEEDBACK": 0
         }
-        self.summary = ''
+        self.fix_pre = "REQUIREMENT Completed: "
+        self.summary = " " * 4 + self.fix_pre + "null"
 
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "关闭", "WAIT_FEEDBACK"]
-        self.summary = super().complete_ratio(rt_list, "REQUIREMENT Completed: ")
+        self.summary = super().complete_ratio(rt_list, self.fix_pre)
 
 
 class itemPROT_DEV(KPIItem):
     def __init__(self):
-        KPIItem.__init__(self)
+        super().__init__()
         self.name_list = ["PROTOCOL", "HF_PROTOCOL", "DEVELOP", "任务", "子任务"]
         self.status_counter = {
             "NO_FEEDBACK": 0,
@@ -142,17 +144,18 @@ class itemPROT_DEV(KPIItem):
             "WAIT_RELEASE": 0,
             "FILED-已完成": 0
         }
-        self.summary = ''
+        self.fix_pre = "Protocol & Develop Complete: "
+        self.summary = " " * 4 + self.fix_pre + "null"
 
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭", "WAIT_FEEDBACK",
                    "FILED-已完成"]
-        self.summary = super().complete_ratio(rt_list, "Protocol & Develop Complete: ")
+        self.summary = super().complete_ratio(rt_list, self.fix_pre)
 
 
 class itemST_BUG(KPIItem):
     def __init__(self):
-        KPIItem.__init__(self)
+        super().__init__()
         self.name_list = ["ST_BUG", "HF_ST_BUG", "缺陷"]
         self.status_counter = {
             "NEW-待处理": 0,
@@ -165,16 +168,26 @@ class itemST_BUG(KPIItem):
             "REOPENED-重新打开": 0,
             "验证中": 0
         }
-        self.summary = ''
+        self.fix_pre = "ST_BUG Fixed: "
+        self.reopen_pre = "ST_BUG Reopened: "
+        self.summary = " " * 4 + self.fix_pre + "null\n"
+        self.summary += " " * 4 + self.reopen_pre + "null"
 
     def calcu_summary(self):
         rt_list = ["拒绝", "RESOLVED-已修复", "CLOSED-关闭", "验证中"]
-        self.summary = super().complete_ratio(rt_list, "ST_BUG Fixed: ")
+        self.summary = super().complete_ratio(rt_list, self.fix_pre) + '\n'
+
         rt_list = ["REOPENED-重新打开"]
-        self.summary += '\n' + super().complete_ratio(rt_list, "ST_BUG Reopened: ")
+        self.summary += super().complete_ratio(rt_list, self.reopen_pre)
 
 
 class KPIForOnePerson:
+    def reset(self):
+        self.fae_bug.reset()
+        self.requirement.reset()
+        self.st_bug.reset()
+        self.prot_dev.reset()
+
     def parse_kpi_row(self, kpi_row):
         work_type = kpi_row[row_attr_index["work_item_type"]]
         id_v = kpi_row[row_attr_index["id"]]
@@ -317,6 +330,9 @@ def row_parser(row_list, first_row):
 
 
 def kpi_process(r_path, csv_list):
+    for mb in members_in_team:
+        mb["kpi"].reset()
+
     report_string = ""
     for csv_file in csv_list:
         first_row = True
