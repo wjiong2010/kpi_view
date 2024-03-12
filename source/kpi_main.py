@@ -66,15 +66,13 @@ class KPIItem:
                 self.status_counter[k] += 1
                 break
 
-    def summary(self, rt_list, pre):
+    def complete_ratio(self, rt_list, pre):
         d = self.status_counter
         c = 0
         for r in rt_list:
             c += d[r]
-        # ratio = d["NO_FEEDBACK"] + d["RESOLVED"] + d["REJECTED"] + d["WAIT_RELEASE"] + d["CLOSED-关闭"]
         ratio = "{:.1f}".format(float(c / self.total) * 100.0)
 
-        # self.summary = "FAE_BUG fixed: " + str(ratio) + "%"
         return " " * 4 + pre + str(ratio) + "%"
 
 
@@ -99,7 +97,7 @@ class itemFAEBUG(KPIItem):
 
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭"]
-        self.summary = super().summary(rt_list, "FAE_BUG Fixed: ")
+        self.summary = super().complete_ratio(rt_list, "FAE_BUG Fixed: ")
 
 
 class itemREQUIREMENT(KPIItem):
@@ -123,7 +121,7 @@ class itemREQUIREMENT(KPIItem):
 
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "关闭", "WAIT_FEEDBACK"]
-        self.summary = super().summary(rt_list, "REQUIREMENT Completed: ")
+        self.summary = super().complete_ratio(rt_list, "REQUIREMENT Completed: ")
 
 
 class itemPROT_DEV(KPIItem):
@@ -149,7 +147,7 @@ class itemPROT_DEV(KPIItem):
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭", "WAIT_FEEDBACK",
                    "FILED-已完成"]
-        self.summary = super().summary(rt_list, "Protocol & Develop Complete: ")
+        self.summary = super().complete_ratio(rt_list, "Protocol & Develop Complete: ")
 
 
 class itemST_BUG(KPIItem):
@@ -171,9 +169,9 @@ class itemST_BUG(KPIItem):
 
     def calcu_summary(self):
         rt_list = ["拒绝", "RESOLVED-已修复", "CLOSED-关闭", "验证中"]
-        self.summary = super().summary(rt_list, "ST_BUG Fixed: ")
+        self.summary = super().complete_ratio(rt_list, "ST_BUG Fixed: ")
         rt_list = ["REOPENED-重新打开"]
-        self.summary += '\n' + super().summary(rt_list, "ST_BUG Reopened: ")
+        self.summary += '\n' + super().complete_ratio(rt_list, "ST_BUG Reopened: ")
 
 
 class KPIForOnePerson:
