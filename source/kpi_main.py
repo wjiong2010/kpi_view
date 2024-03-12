@@ -55,7 +55,8 @@ class KPIItem:
     def do_proc(self, id_v, st, ty):
         print(f"ID: {id_v}, Status: {st}, Type: {ty} in {self.name_list}")
         i = st.find('（')
-        st = st[:i]
+        if i != -1:
+            st = st[:i]
         self.total += 1
         keys_list = list(self.status_counter.keys())
         for k in keys_list:
