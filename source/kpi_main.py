@@ -197,7 +197,7 @@ class KPIForOnePerson:
             raise Exception(f"unknown work type: {work_type}")
 
     def pack_kpi_report(self):
-        report_string = self.name_cn + "(" + self.name_en + ")" + '\n'
+        report_string = self.name_cn + "(" + self.name_en + "):" + '\n'
         report_string += self.fae_bug.get_info() + '\n'
         report_string += self.prot_dev.get_info() + '\n'
         report_string += self.requirement.get_info() + '\n'
@@ -209,7 +209,6 @@ class KPIForOnePerson:
         report_string += self.requirement.summary + '\n'
         report_string += self.st_bug.summary + '\n'
         report_string += self.prot_dev.summary + '\n'
-        report_string += report_secondary_seperator + '\n'
 
         return report_string
 
@@ -352,6 +351,7 @@ def main():
         for mb in members_in_team:
             f.write(mb["kpi"].pack_kpi_report())
             f.write('\n')
+            f.write(report_secondary_seperator + '\n')
             f.write('\n')
 
 
