@@ -183,33 +183,39 @@ class KPIForOnePerson:
 
         if work_type in self.fae_bug.name_list:
             self.fae_bug.do_proc(id_v, st, work_type)
+            self.fae_bug.calcu_summary()
         elif work_type in self.prot_dev.name_list:
             self.prot_dev.do_proc(id_v, st, work_type)
+            self.prot_dev.calcu_summary()
         elif work_type in self.st_bug.name_list:
             self.st_bug.do_proc(id_v, st, work_type)
+            self.st_bug.calcu_summary()
         elif work_type in self.requirement.name_list:
             self.requirement.do_proc(id_v, st, work_type)
+            self.requirement.calcu_summary()
         else:
             raise Exception(f"unknown work type: {work_type}")
 
     def pack_kpi_report(self):
-        report_string = self.fae_bug.get_info() + '\n'
+        report_string = self.name_cn + "(" + self.name_en + ")" + '\n'
+        report_string += self.fae_bug.get_info() + '\n'
         report_string += self.prot_dev.get_info() + '\n'
         report_string += self.requirement.get_info() + '\n'
         report_string += self.st_bug.get_info() + '\n\n'
 
-        report_string += report_secondary_seperator + '\n'
         report_string += report_summary + '\n'
         report_string += "    Workload:" + '\n'
         report_string += self.fae_bug.summary + '\n'
         report_string += self.requirement.summary + '\n'
         report_string += self.st_bug.summary + '\n'
         report_string += self.prot_dev.summary + '\n'
+        report_string += report_secondary_seperator + '\n'
 
         return report_string
 
-    def __init__(self):
-        self.name = ''
+    def __init__(self, name_en, name_cn):
+        self.name_en = name_en
+        self.name_cn = name_cn
         self.work_type = ''
         self.work_load = ""
         self.work_hour = 0
@@ -221,24 +227,24 @@ class KPIForOnePerson:
 
 
 members_in_team = [
-    {"name": "Len Liu", "name_CN": "刘信", "kpi": KPIForOnePerson()},
-    {"name": "Claire Liu", "name_CN": "刘慧", "kpi": KPIForOnePerson()},
-    {"name": "Aleo Liu", "name_CN": "刘洋洋", "kpi": KPIForOnePerson()},
-    {"name": "Harper Kuang", "name_CN": "匡婷", "kpi": KPIForOnePerson()},
-    {"name": "Rain Wu", "name_CN": "吴瑞", "kpi": KPIForOnePerson()},
-    {"name": "Vincent Cui", "name_CN": "崔子晨", "kpi": KPIForOnePerson()},
-    {"name": "Bennett Cui", "name_CN": "崔斌", "kpi": KPIForOnePerson()},
-    {"name": "Haze Zhang", "name_CN": "张仲俊", "kpi": KPIForOnePerson()},
-    {"name": "Allen Zhang", "name_CN": "张学忠", "kpi": KPIForOnePerson()},
-    {"name": "Abert Xu", "name_CN": "徐黎明", "kpi": KPIForOnePerson()},
-    {"name": "Bear Cao", "name_CN": "曹政", "kpi": KPIForOnePerson()},
-    {"name": "Archie Li", "name_CN": "李叶齐", "kpi": KPIForOnePerson()},
-    {"name": "Arthur Lee", "name_CN": "李永乐", "kpi": KPIForOnePerson()},
-    {"name": "Walker Wang", "name_CN": "汪自抒", "kpi": KPIForOnePerson()},
-    {"name": "Elvin Shen", "name_CN": "沈子扬", "kpi": KPIForOnePerson()},
-    {"name": "Ying Xiong", "name_CN": "熊鹰", "kpi": KPIForOnePerson()},
-    {"name": "Ernie Hu", "name_CN": "胡心月", "kpi": KPIForOnePerson()},
-    {"name": "Todd Zheng", "name_CN": "郑功良", "kpi": KPIForOnePerson()}
+    {"name": "Len Liu", "name_CN": "刘信", "kpi": KPIForOnePerson("Len Liu", "刘信")},
+    {"name": "Claire Liu", "name_CN": "刘慧", "kpi": KPIForOnePerson("Claire Liu", "刘慧")},
+    {"name": "Aleo Liu", "name_CN": "刘洋洋", "kpi": KPIForOnePerson("Aleo Liu", "刘洋洋")},
+    {"name": "Harper Kuang", "name_CN": "匡婷", "kpi": KPIForOnePerson("Harper Kuang", "匡婷")},
+    {"name": "Rain Wu", "name_CN": "吴瑞", "kpi": KPIForOnePerson("Rain Wu", "吴瑞")},
+    {"name": "Vincent Cui", "name_CN": "崔子晨", "kpi": KPIForOnePerson("Vincent Cui", "崔子晨")},
+    {"name": "Bennett Cui", "name_CN": "崔斌", "kpi": KPIForOnePerson("Bennett Cui", "崔斌")},
+    {"name": "Haze Zhang", "name_CN": "张仲俊", "kpi": KPIForOnePerson("Haze Zhang", "张仲俊")},
+    {"name": "Allen Zhang", "name_CN": "张学忠", "kpi": KPIForOnePerson("Allen Zhang", "张学忠")},
+    {"name": "Abert Xu", "name_CN": "徐黎明", "kpi": KPIForOnePerson("Abert Xu", "徐黎明")},
+    {"name": "Bear Cao", "name_CN": "曹政", "kpi": KPIForOnePerson("Bear Cao", "曹政")},
+    {"name": "Archie Li", "name_CN": "李叶齐", "kpi": KPIForOnePerson("Archie Li", "李叶齐")},
+    {"name": "Arthur Lee", "name_CN": "李永乐", "kpi": KPIForOnePerson("Arthur Lee", "李永乐")},
+    {"name": "Walker Wang", "name_CN": "汪自抒", "kpi": KPIForOnePerson("Walker Wang", "汪自抒")},
+    {"name": "Elvin Shen", "name_CN": "沈子扬", "kpi": KPIForOnePerson("Elvin Shen", "沈子扬")},
+    {"name": "Ying Xiong", "name_CN": "熊鹰", "kpi": KPIForOnePerson("Ying Xiong", "熊鹰")},
+    {"name": "Ernie Hu", "name_CN": "胡心月", "kpi": KPIForOnePerson("Ernie Hu", "胡心月")},
+    {"name": "Todd Zheng", "name_CN": "郑功良", "kpi": KPIForOnePerson("Todd Zheng", "郑功良")}
 ]
 
 
