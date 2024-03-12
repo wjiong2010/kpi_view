@@ -302,6 +302,64 @@ def init_row_index(row):
     r = row_attr_index["person_in_charge"]
     print(f"person_in_charge: {r}")
 
+    try:
+        row_attr_index["dead_line"] = row.index("截止日期")
+    except ValueError:
+        print("error!!")
+        row_attr_index["dead_line"] = row.index("计划完成日期")
+    r = row_attr_index["dead_line"]
+    print(f"dead_line: {r}")
+
+    try:
+        row_attr_index["estimated_man_hours"] = row.index("预估工时（小时）")
+    except ValueError:
+        print("error!!")
+        row_attr_index["estimated_man_hours"] = row.index("预估工时统计")
+    r = row_attr_index["estimated_man_hours"]
+    print(f"estimated_man_hours: {r}")
+
+    try:
+        row_attr_index["registered_man_hours"] = row.index("已登记工时（小时）")
+    except ValueError:
+        print("error!!")
+        row_attr_index["registered_man_hours"] = row.index("耗时")
+    r = row_attr_index["registered_man_hours"]
+    print(f"registered_man_hours: {r}")
+
+    try:
+        row_attr_index["creator"] = row.index("创建者")
+    except ValueError:
+        print("error!!")
+        row_attr_index["creator"] = row.index("作者")
+    r = row_attr_index["creator"]
+    print(f"creator: {r}")
+
+    try:
+        row_attr_index["creation_time"] = row.index("创建时间")
+    except ValueError:
+        print("error!!")
+        row_attr_index["creation_time"] = row.index("创建于")
+    r = row_attr_index["creation_time"]
+    print(f"creation_time: {r}")
+
+    try:
+        row_attr_index["project"] = row.index("所属项目")
+    except ValueError:
+        print("error!!")
+        row_attr_index["project"] = row.index("项目")
+    r = row_attr_index["project"]
+    print(f"project: {r}")
+
+    try:
+        row_attr_index["reopen_times"] = row.index("重新打开-停留次数")
+    except ValueError:
+        print("error!!")
+        # row_attr_index["project"] = row.index("项目")
+    r = row_attr_index["reopen_times"]
+    print(f"reopen_times: {r}")
+
+    print(row_attr_index)
+
 
 def __get_name(row_list):
     """
