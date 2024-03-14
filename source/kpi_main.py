@@ -67,6 +67,9 @@ class KPIItem:
                 break
 
     def rate_calculater(self, rt_list, pre):
+        if self.total == 0:
+            return " " * 4 + pre + " null"
+
         d = self.status_counter
         c = 0
         for r in rt_list:
@@ -107,13 +110,24 @@ class itemFAEBUG(KPIItem):
         self.reopen_pre = "FAE_BUG Reopened: "
         self.summary = " " * 4 + self.fix_pre + "null\n"
         self.summary += " " * 4 + self.reopen_pre + "null"
+        self.reopen_times = 0
+
+    def do_proc_fae(self, id_v, st, ty, rop_t):
+        super().do_proc(id_v, st, ty)
+        if len(rop_t) != 0:
+            self.reopen_times += int(rop_t)
 
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭", "NO_RESPONSE"]
         self.summary = super().rate_calculater(rt_list, self.fix_pre) + "\n"
 
         rt_list = ["REOPEN"]
-        self.summary += super().rate_calculater(rt_list, self.reopen_pre)
+        self.summary += super().rate_calculater(rt_list, self.reopen_pre) + "\n"
+
+        if self.reopen_times == 0:
+            self.summary += "    FAE_BUG Reopened Times: 0"
+        else:
+            self.summary += "    FAE_BUG Reopened Times: " + str(self.reopen_times)
 
 
 class itemREQUIREMENT(KPIItem):
@@ -139,13 +153,24 @@ class itemREQUIREMENT(KPIItem):
         self.reopen_pre = "REQUIREMENT Reopened: "
         self.summary = " " * 4 + self.fix_pre + "null\n"
         self.summary += " " * 4 + self.reopen_pre + "null"
+        self.reopen_times = 0
+
+    def do_proc_req(self, id_v, st, ty, rop_t):
+        super().do_proc(id_v, st, ty)
+        if len(rop_t) != 0:
+            self.reopen_times += int(rop_t)
 
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "关闭", "WAIT_FEEDBACK", "NO_RESPONSE"]
         self.summary = super().rate_calculater(rt_list, self.fix_pre) + "\n"
 
         rt_list = ["REOPEN"]
-        self.summary += super().rate_calculater(rt_list, self.reopen_pre)
+        self.summary += super().rate_calculater(rt_list, self.reopen_pre) + "\n"
+
+        if self.reopen_times == 0:
+            self.summary += "    REQUIREMENT Reopened Times: 0"
+        else:
+            self.summary += "    REQUIREMENT Reopened Times: " + str(self.reopen_times)
 
 
 class itemPROT_DEV(KPIItem):
@@ -214,21 +239,34 @@ class KPIForOnePerson:
         work_type = kpi_row[row_attr_index["work_item_type"]]
         id_v = kpi_row[row_attr_index["id"]]
         st = kpi_row[row_attr_index["status"]]
+        print("work type: ", work_type)
 
         if work_type in self.fae_bug.name_list:
-            self.fae_bug.do_proc(id_v, st, work_type)
-            self.fae_bug.calcu_summary()
+            if row_attr_index["reopen_times"] == 0:
+                rop_t = ""
+            else:
+                rop_t = kpi_row[row_attr_index["reopen_times"]]
+            print(f"fae_bug rop_t: {rop_t}")
+            self.fae_bug.do_proc_fae(id_v, st, work_type, rop_t)
         elif work_type in self.prot_dev.name_list:
             self.prot_dev.do_proc(id_v, st, work_type)
-            self.prot_dev.calcu_summary()
         elif work_type in self.st_bug.name_list:
             self.st_bug.do_proc(id_v, st, work_type)
-            self.st_bug.calcu_summary()
         elif work_type in self.requirement.name_list:
-            self.requirement.do_proc(id_v, st, work_type)
-            self.requirement.calcu_summary()
+            if row_attr_index["reopen_times"] == 0:
+                rop_t = ""
+            else:
+                rop_t = kpi_row[row_attr_index["reopen_times"]]
+            print(f"requirement rop_t: {rop_t}")
+            self.requirement.do_proc_req(id_v, st, work_type, rop_t)
         else:
             raise Exception(f"unknown work type: {work_type}")
+
+    def kpi_summary(self):
+        self.fae_bug.calcu_summary()
+        self.prot_dev.calcu_summary()
+        self.st_bug.calcu_summary()
+        self.requirement.calcu_summary()
 
     def pack_kpi_report(self):
         report_string = self.name_cn + "(" + self.name_en + "):" + '\n'
@@ -413,7 +451,6 @@ def kpi_process(r_path, csv_list):
     for mb in members_in_team:
         mb["kpi"].reset()
 
-    report_string = ""
     for csv_file in csv_list:
         first_row = True
         fpath = os.path.join(r_path, csv_file)
@@ -426,7 +463,8 @@ def kpi_process(r_path, csv_list):
                 first_row = False
                 print(f"r_list: {r_list}")
 
-    return report_string
+    for mb in members_in_team:
+        mb["kpi"].kpi_summary()
 
 
 def main():
