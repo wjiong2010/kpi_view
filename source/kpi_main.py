@@ -75,6 +75,14 @@ class KPIItem:
 
         return " " * 4 + pre + str(ratio) + "%"
 
+    def get_status_count(self, rt_list):
+        d = self.status_counter
+        c = 0
+        for r in rt_list:
+            c += d[r]
+
+        return c
+
 
 class itemFAEBUG(KPIItem):
     def __init__(self):
@@ -84,6 +92,7 @@ class itemFAEBUG(KPIItem):
             "NO_FEEDBACK": 0,
             "NO_RESPONSE": 0,
             "RESOLVED": 0,
+            "REOPEN": 0,
             "WAIT_FEEDBACK": 0,
             "NEW": 0,
             "DOING": 0,
@@ -95,11 +104,16 @@ class itemFAEBUG(KPIItem):
             "CLOSED-关闭": 0
         }
         self.fix_pre = "FAE_BUG Fixed: "
-        self.summary = " " * 4 + self.fix_pre + "null"
+        self.reopen_pre = "FAE_BUG Reopened: "
+        self.summary = " " * 4 + self.fix_pre + "null\n"
+        self.summary += " " * 4 + self.reopen_pre + "null"
 
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭", "NO_RESPONSE"]
-        self.summary = super().rate_calculater(rt_list, self.fix_pre)
+        self.summary = super().rate_calculater(rt_list, self.fix_pre) + "\n"
+
+        rt_list = ["REOPEN"]
+        self.summary += super().rate_calculater(rt_list, self.reopen_pre)
 
 
 class itemREQUIREMENT(KPIItem):
@@ -108,6 +122,7 @@ class itemREQUIREMENT(KPIItem):
         self.name_list = ["REQUIREMENT", "需求"]
         self.status_counter = {
             "RESOLVED": 0,
+            "REOPEN": 0,
             "WAIT_FEEDBACK": 0,
             "NEW": 0,
             "DOING-进行中": 0,
@@ -121,11 +136,16 @@ class itemREQUIREMENT(KPIItem):
             "NO_RESPONSE": 0
         }
         self.fix_pre = "REQUIREMENT Completed: "
-        self.summary = " " * 4 + self.fix_pre + "null"
+        self.reopen_pre = "REQUIREMENT Reopened: "
+        self.summary = " " * 4 + self.fix_pre + "null\n"
+        self.summary += " " * 4 + self.reopen_pre + "null"
 
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "关闭", "WAIT_FEEDBACK", "NO_RESPONSE"]
-        self.summary = super().rate_calculater(rt_list, self.fix_pre)
+        self.summary = super().rate_calculater(rt_list, self.fix_pre) + "\n"
+
+        rt_list = ["REOPEN"]
+        self.summary += super().rate_calculater(rt_list, self.reopen_pre)
 
 
 class itemPROT_DEV(KPIItem):
