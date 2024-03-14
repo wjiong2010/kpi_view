@@ -66,7 +66,7 @@ class KPIItem:
                 self.status_counter[k] += 1
                 break
 
-    def complete_ratio(self, rt_list, pre):
+    def rate_calculater(self, rt_list, pre):
         d = self.status_counter
         c = 0
         for r in rt_list:
@@ -82,6 +82,7 @@ class itemFAEBUG(KPIItem):
         self.name_list = ["FAE_BUG"]
         self.status_counter = {
             "NO_FEEDBACK": 0,
+            "NO_RESPONSE": 0,
             "RESOLVED": 0,
             "WAIT_FEEDBACK": 0,
             "NEW": 0,
@@ -97,8 +98,8 @@ class itemFAEBUG(KPIItem):
         self.summary = " " * 4 + self.fix_pre + "null"
 
     def calcu_summary(self):
-        rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭"]
-        self.summary = super().complete_ratio(rt_list, self.fix_pre)
+        rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭", "NO_RESPONSE"]
+        self.summary = super().rate_calculater(rt_list, self.fix_pre)
 
 
 class itemREQUIREMENT(KPIItem):
@@ -116,14 +117,15 @@ class itemREQUIREMENT(KPIItem):
             "REJECTED": 0,
             "WAIT_RELEASE": 0,
             "关闭": 0,
-            "NO_FEEDBACK": 0
+            "NO_FEEDBACK": 0,
+            "NO_RESPONSE": 0
         }
         self.fix_pre = "REQUIREMENT Completed: "
         self.summary = " " * 4 + self.fix_pre + "null"
 
     def calcu_summary(self):
-        rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "关闭", "WAIT_FEEDBACK"]
-        self.summary = super().complete_ratio(rt_list, self.fix_pre)
+        rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "关闭", "WAIT_FEEDBACK", "NO_RESPONSE"]
+        self.summary = super().rate_calculater(rt_list, self.fix_pre)
 
 
 class itemPROT_DEV(KPIItem):
@@ -150,7 +152,7 @@ class itemPROT_DEV(KPIItem):
     def calcu_summary(self):
         rt_list = ["NO_FEEDBACK", "RESOLVED", "REJECTED", "WAIT_RELEASE", "CLOSED-关闭", "WAIT_FEEDBACK",
                    "FILED-已完成"]
-        self.summary = super().complete_ratio(rt_list, self.fix_pre)
+        self.summary = super().rate_calculater(rt_list, self.fix_pre)
 
 
 class itemST_BUG(KPIItem):
@@ -175,10 +177,10 @@ class itemST_BUG(KPIItem):
 
     def calcu_summary(self):
         rt_list = ["拒绝", "RESOLVED-已修复", "CLOSED-关闭", "验证中"]
-        self.summary = super().complete_ratio(rt_list, self.fix_pre) + '\n'
+        self.summary = super().rate_calculater(rt_list, self.fix_pre) + '\n'
 
         rt_list = ["REOPENED-重新打开"]
-        self.summary += super().complete_ratio(rt_list, self.reopen_pre)
+        self.summary += super().rate_calculater(rt_list, self.reopen_pre)
 
 
 class KPIForOnePerson:
